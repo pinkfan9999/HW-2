@@ -1,6 +1,6 @@
 ---
 title: "MATH 216 Homework 2"
-author: "WRITE YOUR NAME HERE"
+author: "Alexander Pastora"
 output:
   html_document:
     toc: true
@@ -50,6 +50,59 @@ all keeping in mind in HW-3, you will be fitting a logistic regression to
 predict a user's gender based on these variables.
 
 ```{r, echo=TRUE, message=TRUE, warning=TRUE, fig.width=8, fig.height=4.5}
+# Gender and Income
+# Since Income is self-reported, -1 does not necessarily mean unemployed. It could
+# mean that the person chose not to report income.
+income_data <-profiles %>%  group_by(sex) %>% select(sex,income) %>% filter(income>0)
+
+ggplot(data=income_data, aes(x=sex,y=income)) +geom_boxplot()
+
+# Some Large Outliers skewing the dataset.
+income_data <- income_data %>% filter(income < 125000)
+ggplot(data=income_data, aes(x=sex,y=income)) +geom_boxplot()
+
+
+# Gender and Job
+job_data <-profiles %>%  group_by(sex) %>% select(sex,job) %>% filter(is.na(job)==FALSE) %>% mutate(job =fct_recode(job,
+                                                                                                        "professional"="law / legal services",                                                                                               
+                                                                                                        "professional" = "medicine / health",
+                                                                                                        "entertainment" = "artistic / musical / writer",
+                                                                                                        "entertainment" = "entertainment / media",
+                                                                                                        "administration" = "clerical / administrative",
+                                                                                                        "administration" = "executive / management",
+                                                                                                        "finance" = "banking / financial / real estate",
+                                                                                                        "finance" = "sales / marketing / biz dev",
+                                                                                                        "government" = "political / government",
+                                                                                                        "government" = "military",
+                                                                                                        "industry" = "computer / hardware / software",
+                                                                                                        "industry" = "science / tech / engineering",
+                                                                                                        "travel" = "hospitality / travel",
+                                                                                                        "travel" = "transportation",
+                                                                                                        "none" = "retired",
+                                                                                                        "none" = "unemployed",
+                                                                                                        "other" = "other",
+                                                                                                        "other" = "rather not say",
+                                                                                                        "education" = "education / academia",
+                                                                                                        "construction" = "construction / craftsmanship")
+                                                                                                        )
+
+job_prop <- job_data %>% group_by(sex,job) %>% tally()
+job_total <- job_data %>% group_by(job) %>% tally()
+job_prop2 <- full_join(job_prop, job_total, by="job") %>% mutate(proportion = n.x/n.y)
+
+
+ggplot(data=job_prop2, aes(x=sex, y=proportion)) +geom_bar(stat="identity") + facet_wrap(~job)
+
+# Gender vs. Diet
+
+diet_data <- profiles %>%  group_by(sex) %>% select(sex,diet) %>% filter(is.na(diet)==FALSE)
+
+diet_prop <- diet_data %>% group_by(sex, diet) %>% tally()
+diet_total <- diet_data %>% group_by(diet) %>% tally()
+diet_sex_prop <-full_join(diet_prop,diet_total, by="diet") %>% mutate(proportion = n.x/n.y)
+
+ggplot(data=diet_sex_prop, aes(x=sex, y=proportion)) +geom_bar(stat="identity") + facet_wrap(~diet)
+
 
 ```
 
