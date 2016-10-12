@@ -35,7 +35,7 @@ Please indicate
 
 * Who you collaborated with: Nobody
 * Roughly how much time you spent on this HW so far: 4 hours
-* The URL of the RPubs published URL [here](https://www.nhl.com/).
+* The URL of the RPubs published URL [here](http://rpubs.com/pinkfan9999/HW-2).
 * What gave you the most trouble: Figuring out how to filter out Comedies and Non-Comedies in the dataset.
 * Any comments you have:
 
