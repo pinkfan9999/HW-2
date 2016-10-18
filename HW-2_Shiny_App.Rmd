@@ -29,7 +29,7 @@ inputPanel({
 renderPlot({
   T_or_F <- "Comedy" == input$genre
   
-  ggplot(data=movies %>% filter(Comedy==T_or_F) %>%  select_("rating","budget", "Comedy"), aes(x=budget, y=rating)) + geom_point() 
+  ggplot(data=movies %>% filter(Comedy==T_or_F) %>%  select_("rating","budget", "Comedy"), aes(x=budget, y=rating))+geom_point() + scale_x_log10()
   
-})
+  })
 ```
