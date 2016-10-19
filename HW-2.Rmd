@@ -34,7 +34,7 @@ profiles <- read_csv(file="profiles.csv")
 Please indicate
 
 * Who you collaborated with: Nobody
-* Roughly how much time you spent on this HW so far: 4 hours
+* Roughly how much time you spent on this HW so far: 6 hours
 * The URL of the RPubs published URL [here](http://rpubs.com/pinkfan9999/HW-2).
 * What gave you the most trouble: Figuring out how to filter out Comedies and Non-Comedies in the dataset.
 * Any comments you have:
@@ -106,14 +106,26 @@ diet_prop <- diet_data %>% group_by(sex, diet) %>% tally()
 diet_total <- diet_data %>% group_by(diet) %>% tally()
 diet_sex_prop <-full_join(diet_prop,diet_total, by="diet") %>% mutate(proportion = n.x/n.y)
 
+# Total number of people on each diet.
 diet_total
+# Proportion of males and females on each diet.
 ggplot(data=diet_sex_prop, aes(x=sex, y=proportion)) +geom_bar(stat="identity") + facet_wrap(~diet)
+
+# Total number of males and females on each diet.
+ggplot(data=diet_prop, aes(x=sex, y=n)) +geom_bar(stat="identity") + facet_wrap(~diet)
 
 
 
 
 ```
 
+Since most people choose not to report income, this is not a good predictor
+for gender.
+
+Predicting gender based on job is a decent predictor variable, because the number
+of people in each job category is relatively high.
+
+Predicting gender based on diet is not necessarily the best, because certain diets have relatively low counts of people in them. For example, 25% of people that identified as having a halal diet were women, but only 11 people in total reported having a halal diet.
 
 
 ## Question 2:
