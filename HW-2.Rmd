@@ -34,8 +34,8 @@ profiles <- read_csv(file="profiles.csv")
 Please indicate
 
 * Who you collaborated with: Nobody
-* Roughly how much time you spent on this HW so far: 6 hours
-* The URL of the RPubs published URL [here](http://rpubs.com/pinkfan9999/HW-2).
+* Roughly how much time you spent on this HW so far: 7.5 hours
+* The URL of the RPubs published URL [here](http://rpubs.com/pinkfan9999/217837).
 * What gave you the most trouble: Figuring out how to filter out Comedies and Non-Comedies in the dataset.
 * Any comments you have:
 
