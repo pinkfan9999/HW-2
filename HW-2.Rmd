@@ -113,6 +113,9 @@ ggplot(data=job_prop2, aes(x=sex, y=proportion)) +geom_bar(stat="identity") + fa
 
 diet_data <- profiles %>%  group_by(sex) %>% select(sex,diet) %>% filter(is.na(diet)==FALSE)
 
+#Compile categories
+diet_data <- diet_data %>% mutate(diet = fct_recode(diet,"anything" = "anything", "religious diet/other"="halal", "religious diet/other"="kosher", "anything"="mostly anything" , "religious diet/other"="mostly halal" , "religious diet/other"="mostly kosher","religious diet/other"= "mostly other","vegetarian/vegan"= "mostly vegan", "vegetarian/vegan"="mostly vegetarian", "religious diet/other"="other", "anything" = "strictly anything", "religious diet/other"="strictly halal", "religious diet/other"="strictly kosher", "religious diet/other"="strictly other" , "vegetarian/vegan"="strictly vegan" , "vegetarian/vegan"="strictly vegetarian" , "vegetarian/vegan"="vegan", "vegetarian/vegan"="vegetarian"))
+
 diet_prop <- diet_data %>% group_by(sex, diet) %>% tally()
 diet_total <- diet_data %>% group_by(diet) %>% tally()
 diet_sex_prop <-full_join(diet_prop,diet_total, by="diet") %>% mutate(proportion = n.x/n.y)
@@ -127,7 +130,6 @@ ggplot(data=diet_prop, aes(x=sex, y=n)) +geom_bar(stat="identity") + facet_wrap(
 
 
 
-
 ```
 
 Since most people choose not to report income, this is not a good predictor
@@ -136,7 +138,7 @@ for gender.
 Predicting gender based on job is a decent predictor variable, because the number
 of people in each job category is relatively high.
 
-Predicting gender based on diet is not necessarily the best, because certain diets have relatively low counts of people in them. For example, 25% of people that identified as having a halal diet were women, but only 11 people in total reported having a halal diet.
+Predicting gender based on diet is not necessarily the best, because , even when consolidating categories, non-anything diets have relatively low counts of people in them.
 
 
 ## Question 2:
